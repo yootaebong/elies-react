@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
 
 class Input extends Component {
-  state = {
-    text: '',
-  };
-  addDataClick = () => {
-    this.props.addData(this.state.text);
-    this.setState({ text: '' });
-  };
-  inputChangeHandler = (e) => {
-    const text = e.target.value;
+  inputRef = React.createRef();
 
-    this.setState({ text });
+  addDataClick = (event) => {
+    event.preventDefault();
+    const habitName = this.inputRef.current.value;
+    habitName && this.props.addData(habitName);
+    this.inputRef.current.value = '';
   };
   render() {
     return (
       <span>
-        <input
-          className="add-input"
-          placeholder="Habit"
-          onChange={this.inputChangeHandler}
-          value={this.state.text}
-        ></input>
+        <input className="add-input" placeholder="Habit" ref={this.inputRef}></input>
         <button className="add-button" onClick={this.addDataClick}>
           Add
         </button>

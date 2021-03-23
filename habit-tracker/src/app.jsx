@@ -48,18 +48,23 @@ class App extends Component {
 
   addData = (text) => {
     if (!text) throw 'inputs text is not definded';
-    const habits = [...this.state.habits];
-    console.log(Date.now(), text);
-    habits.push({
-      id: Date.now(),
-      name: text,
-      count: 0,
-    });
+    const habits = [
+      ...this.state.habits,
+      {
+        id: Date.now(),
+        name: text,
+        count: 0,
+      },
+    ];
 
     this.setState({ habits });
   };
   resetAll = () => {
-    const habits = [];
+    const habits = this.state.habits.map((habit) => {
+      habit.count = 0;
+      return habit;
+    });
+
     this.setState({ habits });
   };
 
