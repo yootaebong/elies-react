@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 // 클래스는 대문자로 시작하는 습관
-class Habit extends Component {
-  // 렌더 처리를 해주지 않으면 해당 부분이 항상 호출이 되기 때문에
-  // 불필요한 일이 수행될 수 있다
-  // 이런것을 방지할수 있는게 PureComponent && Memo
+// 렌더 처리를 해주지 않으면 해당 부분이 항상 호출이 되기 때문에
+// 불필요한 일이 수행될 수 있다
+// 이런것을 방지할수 있는게 PureComponent && Memo
+class Habit extends PureComponent {
+  componentDidMount() {
+    console.log('didMount');
+  }
+  componentWillUnmount() {
+    console.log('willUnmount');
+  }
   handleIncrement = () => {
     this.props.onIncreament(this.props.habit);
   };
