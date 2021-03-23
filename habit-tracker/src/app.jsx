@@ -18,17 +18,24 @@ class App extends Component {
     // habit.count++;
     // this.setState((this.state.habits[index] = habit));
 
-    const habits = [...this.state.habits];
-    const index = this.findIndex(habits, habit);
-    habits[index].count++;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
     // 키와 벨류가 같은 값 일경우 한번만 써도 된다.
     this.setState({ habits });
   };
 
   handleDecrement = (habit) => {
-    const habits = [...this.state.habits];
-    const index = this.findIndex(habits, habit);
-    habits[index].count = habits[index].count - 1 < 0 ? 0 : habits[index].count - 1;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        const count = habit.count - 1;
+        return { ...habit, count: count < 0 ? 0 : count };
+      }
+      return item;
+    });
     this.setState({ habits });
   };
 
@@ -42,9 +49,9 @@ class App extends Component {
     const habits = this.state.habits.filter((item) => item.id !== habit.id);
     this.setState({ habits });
   };
-  findIndex = (arr, obj) => {
-    return arr.indexOf(obj);
-  };
+  // findIndex = (arr, obj) => {
+  //   return arr.indexOf(obj);
+  // };
 
   addData = (text) => {
     if (!text) throw 'inputs text is not definded';
@@ -61,7 +68,11 @@ class App extends Component {
   };
   resetAll = () => {
     const habits = this.state.habits.map((habit) => {
-      habit.count = 0;
+      // 불필요한 새로운 Object는 리렌더링 되는 횟수만 늘어난다
+      // 필요한 데이터만 새로운 object로 만들수 있게 하자
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 };
+      }
       return habit;
     });
 
@@ -70,7 +81,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <Nav allCount={this.state.habits.length} />
         <Input addData={this.addData} />
         <Habits
@@ -82,7 +93,7 @@ class App extends Component {
         <button className="habit-delete" onClick={this.resetAll}>
           Reset All
         </button>
-      </>
+      </div>
     );
   }
 }
