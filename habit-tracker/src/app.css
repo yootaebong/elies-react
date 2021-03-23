@@ -12,6 +12,9 @@ button {
   font-size: 2rem;
   padding: 1em;
   background-color: blanchedalmond;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .navbar-logo {
