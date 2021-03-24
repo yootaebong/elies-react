@@ -1,11 +1,12 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import Index from './component/page/index';
+import App from './app.jsx';
 
 ReactDOM.render(
   //  use strict 와 같은 역할
   <React.StrictMode>
-    <Index />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );

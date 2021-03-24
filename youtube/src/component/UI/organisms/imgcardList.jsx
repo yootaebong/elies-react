@@ -1,29 +1,24 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import RowImacard from '../molecules/rowImacard';
 import styles from './../../../styles/organisms/imgcardList.module.css';
 
-const ImgcardList = () => {
-  const [items, setItems] = useState([
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-    { image: '/', title: 'asd', description: 'asd' },
-  ]);
+const ImgcardList = memo((props) => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if (props.items && props.items.items) {
+      const temps = [...items, ...props.items.items];
+      setItems(temps);
+    }
+  }, [props.items]);
+
   return (
-    <div className={styles.wrap}>
+    <>
       {items.map((e) => {
-        return <RowImacard image={e.image} title={e.title} description={e.description} />;
+        return <RowImacard item={e} key={e.id} {...props} />;
       })}
-    </div>
+    </>
   );
-};
+});
 
 export default ImgcardList;

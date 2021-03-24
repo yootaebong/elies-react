@@ -8,7 +8,7 @@ const Navigationbar = (props) => {
   return (
     <nav className={classNames(styles.nav, props.className)}>
       <Logo className={styles.logo} />
-      <Seachbar className={styles.searchbar} />
+      <Seachbar className={styles.searchbar} search={props.search} />
     </nav>
   );
 };

@@ -1,5 +1,6 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  max-width: 1980px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  flex: 1;
 }

@@ -1,16 +1,13 @@
 import React from 'react';
+import classNames from 'classnames';
 import ImgcardList from '../UI/organisms/imgcardList';
-import Navigationbar from '../UI/organisms/navigationbar';
 import styles from './../../styles/template/index.module.css';
 
-const IndexTemplate = () => {
+const IndexTemplate = (props) => {
   return (
-    <div className={styles.main}>
-      <Navigationbar className={styles.nav} />
-      <main>
-        <ImgcardList className={styles.content} />
-      </main>
-    </div>
+    <main className={classNames(styles.main, props.className)}>
+      <ImgcardList className={styles.content} items={props.items} />
+    </main>
   );
 };
 
