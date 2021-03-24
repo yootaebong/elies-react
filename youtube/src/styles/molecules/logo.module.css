@@ -1,0 +1,11 @@
+.figure {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.figure img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: scale-down;
+}
