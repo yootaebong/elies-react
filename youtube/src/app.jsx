@@ -15,27 +15,35 @@ const App = (props) => {
   });
 
   const [popData, setPopData] = useState(null);
+  const [searchText, setSearchText] = useState(null);
 
-  const getData = (type, seachText = '') => {
-    if (!type) throw 'getData need type';
+  const getData = () => {
     let requrl;
-    if (type === 'pop') {
+    if (!searchText) {
       requrl = `${yotubeData.popUrl}?regionCode=${yotubeData.regionCode}&type=${yotubeData.type}&chart=mostPopular&maxResults=10&key=${yotubeData.key}&part=snippet`;
-    } else if (type == 'search') {
+    } else {
       // 서치 작업
+      requrl = yotubeData.searchUrl;
+      requrl += `?part=snippet`;
+      requrl += `&maxResults=10`;
+      requrl += `&order=date`;
+      requrl += `&key=${yotubeData.key}`;
+      requrl += `&q=${searchText}`;
     }
     fetch(requrl)
       .then((res) => res.json())
       .then((data) => setPopData(data));
   };
 
-  const startSearch = (ref) => {
+  const startSearch = async (ref) => {
     const content = ref.current.value;
     if (!content) throw 'no text';
+    setSearchText(content);
   };
+
   useEffect(() => {
-    getData('pop');
-  }, []);
+    getData();
+  }, [searchText]);
   return (
     <>
       <Navigationbar search={startSearch} />

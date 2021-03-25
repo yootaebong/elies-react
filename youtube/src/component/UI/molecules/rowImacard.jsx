@@ -16,7 +16,8 @@ const RowImacard = (props) => {
         description: item.snippet.description,
       });
     } else {
-      window.location.href = `/details/${item.id}`;
+      let key = typeof item.id == 'string' ? item.id : item.id.videoId;
+      window.location.href = `/details/${key}`;
     }
   };
 

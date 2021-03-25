@@ -12,13 +12,16 @@ const Detail = (props) => {
   });
 
   const videoItem = props.items && props.items.items.filter((e) => e.id == id);
-  if (!video.title && videoItem) {
+  try {
+    const title = videoItem[0].snippet.title;
+    const description = videoItem[0].snippet.description;
+
     setVideo({
       id: id,
-      title: videoItem[0].snippet.title,
-      description: videoItem[0].snippet.description,
+      title: title,
+      description: description,
     });
-  }
+  } catch (e) {}
 
   useEffect(() => {
     history.push(video.id);
