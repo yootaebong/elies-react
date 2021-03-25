@@ -8,20 +8,23 @@ function App({ youtube }) {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
-  const selectVideo = video => {
+  const selectVideo = (video) => {
     setSelectedVideo(video);
   };
 
-  const search = query => {
+  const search = (query) => {
     youtube
       .search(query) //
-      .then(videos => setVideos(videos));
+      .then((videos) => {
+        setVideos(videos);
+        setSelectedVideo(null);
+      });
   };
 
   useEffect(() => {
     youtube
       .mostPopular() //
-      .then(videos => setVideos(videos));
+      .then((videos) => setVideos(videos));
   }, []);
   return (
     <div className={styles.app}>
